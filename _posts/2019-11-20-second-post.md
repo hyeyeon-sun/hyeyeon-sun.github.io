@@ -15,7 +15,7 @@ categories: jekyll update
  (테마에 따라 posts.md파일도 복사해야 할 수도 있다)
  (제대로 동작하지 않으면 설명을 읽어보며 다른 파일도 복사해온다)
  
- *^^*완성*^^*
+**완성**
  
  포스트 작성하기
  
@@ -23,13 +23,16 @@ categories: jekyll update
 _posts/YYYY-MM-DD-name-of-post.md 제목으로 새로운 파일을 만든다.
 
 파일 맨 처음에는 다음과 같이 글의 제목과 날짜 등을 적어준다.
+
+*/
 ---
 title: "Welcome to Jekyll!"
 date: 2019-11-20 08:26:28 -0400
 categories: jekyll update
 ---
+
 밑에는 자유롭게 원하는 내용을 적는다 !
 
-*^^*포스트 작성 끝*^^*
+**포스트 작성 끝**
 
 username.github.io에 접속해 확인한다!

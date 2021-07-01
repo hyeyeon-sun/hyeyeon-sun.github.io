@@ -109,7 +109,7 @@ analytics:
 author:
   name             : "HyeyeonLee"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  bio              : "매일 조금씩 나아가는 개발자"
   location         : "Suwon,Korea"
   email            :
   links:

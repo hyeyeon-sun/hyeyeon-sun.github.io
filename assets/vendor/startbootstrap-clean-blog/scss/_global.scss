@@ -1,6 +1,6 @@
 // Global styling for this template
 body {
-    font-size: 22px;
+    font-size: 18px;
     color: $gray-900;
 }
 
@@ -38,6 +38,37 @@ blockquote {
     padding-right: 20px;
     border-left: 10px solid #636363;
     font-style: italic;
+}
+
+pre {
+    background-color: #D1D1D0;
+    overflow: auto;
+    font-family: 'Monaco', monospace;
+    padding: 0 1em;
+}
+
+
+
+code {
+    font-family: Monaco, monospace;
+    font-size: 18px;
+    line-height: 100%;
+    background-color: #eee;
+    padding: 0.2em;
+    letter-spacing: -0.05em;
+    word-break: normal;
+    border-radius: 5px;
+}
+
+
+
+pre code {
+    border: none;
+    background: none;
+    font-size: 18px * 0.875;
+    line-height: 1em;
+    letter-spacing: normal;
+    word-break: break-all;
 }
 
 .section-heading {

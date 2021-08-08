@@ -2,7 +2,7 @@
 layout: post
 title: "지원 동기 : backend.ai 설치과정"
 subtitle: "backend.ai를 설치해본다."
-date: 2021-07-125 10:45:13 -0400
+date: 2021-07-25 10:45:13 -0400
 background: '/img/bg-index.jpg'
 ---
 
@@ -21,6 +21,7 @@ SPA로 webui를 제공하고, API 요청을 프록시 하는 웹앱 호스팅 �
 * 그 서버에서 웹서버의 데이터를 받아오고, 받아온 데이터를 나의 컴퓨터로 전송해준다. 이 역할을 해주는 서버를 proxy라고 한다.
 
 2. backend.ai Web Server 설치 (prepare)
+---
 먼저 3.9 버전 이상의 파이썬 가상환경과, 6.2 이상의 Redis 서버를 준비한다.
 
 🔎 파이썬 가상환경 설정
@@ -48,6 +49,9 @@ pip install -U -e .를 하려는데 ..?
   -> pip3 install --upgrade pip 이걸로 업그레이드 해도 되지가 않는다 ..
   -> 아무리 업그레이드를 해도 이미 최신을 충족한다고 뜬다... https://m.blog.naver.com/bb_/221717225516 를 참고해 python 가상환경 때문이란 걸 알게 되었다.
  -> 가상환경을 높은 버전의 python 으로 다시 하자 ! 흠 그런데 redis도 윈도우 지원하는게 낮은 버전밖에 없어서 그걸 깔았는데 .. 
+ 
+ ![image](https://user-images.githubusercontent.com/39080868/126967143-7906b739-ead5-470b-8209-a10284f73183.png)
+
 
 https://hengbokhan.tistory.com/m/139 참고해서
 py -3.9.6 -m pip install virtualenv
@@ -63,13 +67,21 @@ py -3.9.6 -m pip install virtualenv
 아나콘다 가상환경을 설정했음에도 버전이 없다는 에러가 발생했다. 그런데 그때 상단의 에러를 다시 한번 살펴보니 window에서 해당파일을 사용할 수 없다는 에러가 발생했고, 따라서 docker을 통해서 프로그램을 다시 설치하기 시작했다.<br>
 
 웹상의 자료를 참고해 docker-compose.yml 파일을 만들었다.
+![image](https://user-images.githubusercontent.com/39080868/126967006-ed5219d8-c1cf-42a1-8b50-d1ed5c7c7aa3.png)
 
 그러나 docker을 돌리는 과정에서 에러가 발생했다.. docker run hello world 부터 안되기 시작했다.
+
+![image](https://user-images.githubusercontent.com/39080868/126966747-867943a6-b4a2-4a80-9cdb-c222120d52d1.png)
 
 따라서 docker를 지우고 다시 설치했고, window 10 home 버전이기에 두가지 방법이 있었다.
  - hyper-v를 이용한 방식 -> 설치는 정상적으로 되지만, 클라이언트에서만 되고 서버 버전은 제대로 깔리지 않는 에러가 발생했다.
  - WSL2 설치 -> powher shell 창이 먹통이 되며 컴퓨터가 다운되는 에러가 발생했다.
 
+
+
+
+
 <br><br>
+
 
  미션을 끝까지 완수하지 못한것은 아쉽지만, docker-compose 파일을 작성하며 docker 환경설정에 대해 다시 복기할 수 있는 기회가 되어서 좋았다. 컴퓨터를 고치는 대로 다시 WSL2를 설치하고, docker 데몬을 실행해 환경설정을 하고 backend.ai를 다시 돌려볼 예정이다.

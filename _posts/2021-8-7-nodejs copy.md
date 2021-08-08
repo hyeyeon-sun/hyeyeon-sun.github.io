@@ -1,0 +1,55 @@
+---
+layout: post
+title: "[node.js 공부] node.js 서버 구축"
+subtitle: "node.js에서 기본적인 서버를 구축해본다 "
+date: 2021-08-07 10:35:13 -0400
+background: '/img/bg-index.jpg'
+---
+
+🚶‍♀️Prolog
+---
+ 아직 백엔드조차 제대로 섭렵하지 못한 초보지만,, 그래도 언젠가는 프론트도 백엔드도 다 하고 싶은 풀스택 개발자가 되고 싶다는 꿈이 있다 .. ⭐ 따라서 javascript 기반으로 서버를 다룰 수 있는 node.js가 배우고 싶어졌다 ! 이에 인프런에서
+ 강의를 찾아 열심히 따라하며 공부하고 있다. [egoing 님의 강의](https://www.inflearn.com/course/nodejs-%EA%B0%95%EC%A2%8C-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9/dashboard)를
+ 참고해 공부하고 있고, 공부하며 정리한 내용들을 블로그에 올려볼 것이다 !
+<br>
+
+## 1. nodejs 서버 구축
+---
+웹서버를 호스팅하는 간단한 코드와 그 설명을 보면서 node.js와 조금 친해져보자.
+<pre><code>const http = require('http'); 
+const hostname = '127.0.0.1';
+const port = 1337;
+
+http.createServer((req, res) => { // 서버를 만든다.
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello World\n');
+}).listen(port, hostname, () => { // listen을 할건데, listen할 port번호와 hostname을 전달받는다.
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+// 코드가 1337 code를 listening하도록 만드는 것이다.
+// 또 127.0.0.1로 접속한 사용자에 대해 응답하라는 것이다.
+</code></pre>
+
+ 코드에 대한 설명은 주석을 통해 알 수 있다. http라는 모듈은 웹 서버를 호스팅할 수 있는 다양한 기능이 담긴 pakage인데, 이를 가져온다. 그리고 http의 메소드닌 createServer를 이용해 서버를 만들고, listen 메소드를 통해 만들어진 서버가 127.0.0.1이라는 호스트의 1337port를 listen할 것이라고 지정해준다.<br>
+ 여기서 끝~! 나면 안되고 ,, 반드시 공식 문서를 참고하는 버릇을 들이자. [node.js docs](https://nodejs.org/api/)를 참고해 해당 문서에 쓰인 api의 명세를 정리해보았다.
+<br>
+
+## 2. node.js http api 명세
+---
+**🔎 http.createServer([options][, requestListener])**<br>
+-- options -> IncomingMessage, ServerResponse, insecureHTTPParser, maxHeaderSize 등을 명시<br>
+-- [, requestListener] -> \<Function\> 서버에 관한 함수를 입력으로 받음.<br>
+-- Returns \<http.server\><br>
+
+**🔎 server.listen([port[, host[, backlog]]][, callback])**<br>
+-- port \<number\> <br>
+-- host \<string\> <br>
+-- backlog \<number\> <br>
+-- callback \<Function\><br>
+-- Returns: \<net.Server\><br>
+description : 서버가 .port와 host에 해당하는 것을 listening한다.<br>
+server.listen에는 4가지 종류가 있으며, 위는 TCP에 해당되는 method다. <br>
+<br>
+
+## 결론
+ node.js로 간단한 서버를 구축해 보았다. 좋은 블로그 글과 stackoverflow님도 개발에 정말 많은 도움이 되지만, 이제 막 배우기 시작한 언어에 접근하는 가장 확실하고도 효율적인 방법은 공식문서인 것 같다 ! 앞으로도 눈에 잘 안들어올지라도 더 열심히 들여다보고 익혀야겠다. 

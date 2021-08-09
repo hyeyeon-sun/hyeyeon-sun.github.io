@@ -2,7 +2,7 @@
 layout: post
 title: "[node.js 공부] callback 함수"
 subtitle: "callback 함수의 개념과 실제 활용 예시에 대해 알아본다."
-date: 2021-08-07 10:45:13 -0400
+date: 2021-08-08 10:45:13 -0400
 background: '/img/bg-index.jpg'
 ---
 

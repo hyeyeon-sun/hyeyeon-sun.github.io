@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "[node.js 공부] callback 함수와 npm"
-subtitle: "callback 함수와 npm에 대해 알아본다."
+title: "[node.js 공부] npm 패키지 매니저"
+subtitle: "패키지 매니저인 npm에 대해 알아본다."
 date: 2021-08-07 10:45:13 -0400
 background: '/img/bg-index.jpg'
 ---
@@ -11,9 +11,7 @@ background: '/img/bg-index.jpg'
   개발.. 혼자하는 게 아니라고 했다. 여러사람이 만든 모듈과 라이브러리를 바탕으로 훨씬 더
  쉽게 견고한 산출물을 만들어낼 수 있다. 특히 node.js에는 **npm**이라는 강력한 패키지 관리자가
  있어 보다 쉽게 개발을 할 수 있다. 이런 npm의 개념과 활용법에 대해 차근차근 알아보기로 한다.<br>
-  더불어 함수의 인자가 되는 함수인, **callback 함수**에 대해서도 알아본다. callback 함수의 경우
- node.js에서 매우 중요하게 사용되는 개념이며, 이후 동기와 비동기를 이해할 때도 핵심이 되기
- 때문에 자주 사용하여 익혀두면 좋다.
+
 
 
 
@@ -51,19 +49,7 @@ background: '/img/bg-index.jpg'
   - <code>npm install [name] -g</code> : 설치하는 패키지를 전역적으로 사용하겠다는 의미다.
   - <code>npm install [name]</code> : 설치하는 패키지를 현재 프로젝트의 부품으로 사용하겠다는 의미다.<br><br>
  
- 
-## 3. call back
- ✔ 함수의 인자로 함수를 받을 수도 있다. <br>
- ✔ 이때 **인자로 사용되는 함수를 callback함수**라고 한다.<br>
- ✔ 예를들어 하단의 코드에서 sort라는 함수는 b라는 함수를 callback 함수로 호출한다.
-  <pre><code> a = [3,1,2];
-   function b(v1, v2){console.log(v1,v2); return 0;}
-   a.sort(b); </code></pre>
 
-정의한 callback함수는 내가 호출하는게 아니라, sort라는 함수가 필요할 때마다 알아서 호출한다.
-> 내가 만든 callback함수는 내가 호출할 것이 아니라, 다른 누군가에 의해 언젠가 호출당할 함수다. 그런 의미에서 callback이라고 할수도 있을 것이다 !
- 
- <br>
  
 ## 👉 모듈 정보
  실습과정에서 사용한 모듈과 명령어에 대한 정보를 정리해보았다. <br>

@@ -1,0 +1,26 @@
+I"�<h2 id="️prolog">🚶‍♀️Prolog</h2>
+<p>(바쁘신 분들은 pass 하세유)<br />
+  프로그래머스 양궁 문제로 오랫동안 씨름하다가 너무 진도가 안나가서 일단 level1문제를 간만에 풀어보았다. 앞으로 매일 한문제 이상은 풀고 포스팅을 올리는게 목표이므로 습관을 들일때 까지는 당분간 level1,2문제를 풀고, 점차 난이도를 높여가는 식으로 해야겠다.</p>
+
+<h2 id="️problem">❗️Problem</h2>
+<p><a href="https://school.programmers.co.kr/learn/courses/30/lessons/118666"><img src="/assets/image/photo.png" alt="성격유형 검사하기" width="100%" /></a>
+↑클릭 시 문제로 이동
+<br />
+mbti와 같이 설문지를 주면 그 결과로 성격유형을 반환하는 문제다.</p>
+
+<h2 id="️-solution">💁‍♂️ Solution</h2>
+<p>설문지를 기반으로 점수를 매기는 부분과 매겨진 점수로 성격유형을 나타내는 부분으로 나누었다.</p>
+
+<p>def solution(survey, choices):
+    character = {‘R’: 0 , ‘T’ : 0 , ‘C’: 0 , ‘F’ : 0, ‘J’: 0 , ‘M’ : 0, ‘A’: 0 , ‘N’ : 0}
+    score = [3,2,1,0,1,2,3]
+    <code>
+    for i in range(len(survey)):
+        if choices[i] &gt; 4:
+            character[survey[i][1]] += score[choices[i]-1]
+        elif choices[i] &lt; 4 :
+            character[survey[i][0]] += score[choices[i]-1]
+    </code></p>
+
+<h2 id="️-source-code">💁‍♂️ Source Code</h2>
+:ET

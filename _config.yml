@@ -1,6 +1,6 @@
 title:              CodingLog
 email:              sunkite3030@khu.ac.kr
-description:        좌충우돌 초보 개발자 성장기
+description:        백엔드 개발 로그
 author:             hyeyeon-sun
 baseurl:            ""
 url:                "https://hyeyeon-sun.github.io"
@@ -23,3 +23,5 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+highlighter: rouge

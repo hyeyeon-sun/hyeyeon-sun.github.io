@@ -1,0 +1,73 @@
+I"�.<h2 id="-prolog">• Prolog</h2>
+<p>(바쁘신 분들은 pass 하세유)<br />
+  프로그래머스 양궁 문제로 오랫동안 씨름하다가 너무 진도가 안나가서 일단 level1문제를 간만에 풀어보았다. 앞으로 매일 한문제 이상은 풀고 포스팅을 올리는게 목표이므로 습관을 들일때 까지는 당분간 level1,2문제를 풀고, 점차 난이도를 높여가는 식으로 해야겠다.
+<br />
+• Problem
+—
+<a href="https://school.programmers.co.kr/learn/courses/30/lessons/118666"><img src="/assets/image/photo.png" alt="성격유형 검사하기" width="100%" /></a>
+↑클릭 시 문제로 이동
+<br />
+mbti와 같이 설문지를 주면 그 결과로 성격유형을 반환하는 문제다.
+<br />
+• Solution
+—
+설문지를 기반으로 점수를 매기는 부분과 매겨진 점수로 성격유형을 나타내는 부분으로 나누었다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">survey</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+    <span class="n">character</span> <span class="o">=</span> <span class="p">{</span><span class="s">'R'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'T'</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'C'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'F'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'J'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'M'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'A'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'N'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">survey</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">character</span><span class="p">[</span><span class="n">survey</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">score</span><span class="p">[</span><span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="p">:</span>
+            <span class="n">character</span><span class="p">[</span><span class="n">survey</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">score</span><span class="p">[</span><span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<p>character라는 딕셔너리를 생성하고, 4보다 클경우 우측의 성격유형에 값을 더하고, 4보다 작을 경우 좌측의 성격유형에 값을 더한다. 값을 더할때는 score라는 1차원 배열로 쉽게 계산할 수 있도록 했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">character</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">character</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">character</span><span class="p">[</span><span class="n">pc</span><span class="p">]:</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">pc</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add</span> <span class="o">=</span> <span class="n">c</span> <span class="k">if</span> <span class="n">character</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">character</span><span class="p">[</span><span class="n">pc</span><span class="p">]</span> <span class="k">else</span> <span class="n">pc</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="n">add</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">c</span>
+        
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+<p>다음으로는 딕셔너리의 짝수값마다 순환하며 이전의 유형과 비교를 해 성격유형을 차례대로 판단한다. 이때 딕셔너리를 인덱스로 호출하는 법을 몰라 위처럼 i라는 변수를 두어 카운트 했는데, 찾아보니 <strong>enumerate</strong>라는 함수로 값을 하나하나 꺼낼 수 있다고 한다. 다음에 시도해보아야겠다.
+<br />
+• result
+—
+<img src="/assets/image/sucess.png" alt="성격유형 검사하기" width="50%" />
+<br />
+• Source Code
+—</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">survey</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+    <span class="n">character</span> <span class="o">=</span> <span class="p">{</span><span class="s">'R'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'T'</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'C'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'F'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'J'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'M'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'A'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">,</span> <span class="s">'N'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">survey</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">character</span><span class="p">[</span><span class="n">survey</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">score</span><span class="p">[</span><span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="p">:</span>
+            <span class="n">character</span><span class="p">[</span><span class="n">survey</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">score</span><span class="p">[</span><span class="n">choices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">character</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">character</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">character</span><span class="p">[</span><span class="n">pc</span><span class="p">]:</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">pc</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add</span> <span class="o">=</span> <span class="n">c</span> <span class="k">if</span> <span class="n">character</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">character</span><span class="p">[</span><span class="n">pc</span><span class="p">]</span> <span class="k">else</span> <span class="n">pc</span>
+                <span class="n">answer</span> <span class="o">+=</span> <span class="n">add</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">c</span>
+        
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+:ET

@@ -1,0 +1,63 @@
+I"l<h2 id="️prolog">🚶‍♀️Prolog</h2>
+<p>함수의 인자가 되는 함수인, <strong>callback 함수</strong>에 대해서 알아본다. callback 함수의 경우
+ node.js에서 매우 중요하게 사용되는 개념이며, 이후 동기와 비동기를 이해할 때도 핵심이 되기
+ 때문에 자주 사용하여 익혀두면 좋다.<br />
+  먼저 callback함수의 정의에 대해 알아보고, 실제 응용 예시와 종류별 callback함수의 적용, 익명의 callback함수에 대해 알아본다.</p>
+
+<h2 id="1-call-back-함수">1. call back 함수</h2>
+<p>✔ 함수의 인자로 변수를 받을 수도 있으나, 이 뿐 아니라 함수를 받을 수도 있다. <br />
+ ✔ 이때 <strong>인자로 사용되는 함수를 callback함수</strong>라고 한다.<br />
+ ✔ 예를들어 하단의 코드에서 sort라는 함수는 b라는 함수를 callback 함수로 호출한다.</p>
+<pre><code> a = [3,1,2];
+   function b(v1, v2){console.log(v1,v2); return 0;}
+   a.sort(b); </code></pre>
+
+<p>정의한 callback함수는 내가 호출하는게 아니라, sort라는 함수가 필요할 때마다 알아서 호출한다.</p>
+<blockquote>
+  <p>내가 만든 callback함수는 내가 호출할 것이 아니라, 다른 누군가에 의해 언젠가 호출당할 함수다. 그런 의미에서 callback이라고 할수도 있을 것이다 !</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="2-call-back-함수를-매개변수로-하는-함수-익명의-callback함수">2. call back 함수를 매개변수로 하는 함수, 익명의 callback함수</h2>
+
+<p><strong>🔎 call back 함수를 매개변수로 하는 함수</strong></p>
+
+<p>매개변수가 없는 callback함수를 사용할 경우 상단과 같은 형태로 정의할 수 있다. <br /> 파라미터로는 <strong>callback함수의 이름만을</strong> 입력하면 된다.</p>
+
+<pre>function sort(callback) {callback();};</pre>
+
+<p>callback함수가 <strong>파라미터를 가질 경우</strong>에는 위와 같이 sort함수에서 callback함수의 파라미터도 받아와 callback함수의 인자로 전달할 수도 있다.</p>
+
+<pre>function sort(callback, v1, v2) {callback(v1, v2);};</pre>
+
+<p><strong>배열</strong>을 파라미터로 받아와 callback함수를 적용할 수도 있다.</p>
+<pre>function sort(callback, arr) {for ~ { callback()} };</pre>
+
+<p>또는 sort에서 매개변수를 받지 않고 sort함수 내부에서 임의의 인자를 전달할 수도 있다.</p>
+<pre>function sort(callback) {callback(1,3); };</pre>
+
+<p><br /></p>
+
+<p><strong>🔎 익명의 callback 함수</strong></p>
+
+<p>이런 식으로 따로 callback함수의 이름을 주어주고 sort의 인자로 받아올 수도 있다.</p>
+
+<pre><code>function a(v1, v2) {return v1-v2 ;};
+function sort(a);</code></pre>
+
+<p>또는 여러 함수에서 callback함수를 인자로 사용할 예정이 아닌 경우 이름 없이 바로 인자로 넣을 수도 있다.</p>
+
+<pre><code>function sort(function (v1, v2) {return v1-v2 ;});</code></pre>
+
+<p><br /></p>
+
+<p><strong>🔎 인자(Argument) VS 매개변수(Parameter)</strong></p>
+
+<p>인자는 어떤 함수를 ‘호출’시에 ‘전달 되는 값’을 말하고,<br />
+매개 변수는 그 전달된 인자를 받아들이는 변수다.</p>
+
+<p>즉 인자는 <strong>값</strong>을 의미하고, 매개 변수는 말그대로 <strong>그 값이 담긴 변수</strong>다.</p>
+
+<p><br /><br /></p>
+:ET

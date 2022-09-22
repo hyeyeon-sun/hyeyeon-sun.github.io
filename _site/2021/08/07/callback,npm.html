@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    [node.js 공부] npm 패키지 매니저 - CodingLog
+    
+  </title>
+
+  <meta name="description" content="🚶‍♀️Prolog 개발.. 혼자하는 게 아니라고 했다. 여러사람이 만든 모듈과 라이브러리를 바탕으로 훨씬 더 쉽게 견고한 산출물을 만들어낼 수 있다. 특히 node.js에는 npm이라는 강력한 패키지 관리자가 있어 보다 쉽게 개발을 할 수 있다. 이런 npm의 개념과 활용법에 대...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2021/08/07/callback,npm.html">
+  <link rel="alternate" type="application/rss+xml" title="CodingLog" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">CodingLog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/bg-index.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>[node.js 공부] npm 패키지 매니저</h1>
+            
+            <h2 class="subheading">패키지 매니저인 npm에 대해 알아본다.</h2>
+            
+            <span class="meta">Posted by
+              <a href="#">hyeyeon-sun</a>
+              on August 07, 2021 &middot; <span class="reading-time" title="Estimated read time">
+  
+   2 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <h2 id="️prolog">🚶‍♀️Prolog</h2>
+<p>개발.. 혼자하는 게 아니라고 했다. 여러사람이 만든 모듈과 라이브러리를 바탕으로 훨씬 더
+ 쉽게 견고한 산출물을 만들어낼 수 있다. 특히 node.js에는 <strong>npm</strong>이라는 강력한 패키지 관리자가
+ 있어 보다 쉽게 개발을 할 수 있다. 이런 npm의 개념과 활용법에 대해 차근차근 알아보기로 한다.<br /></p>
+
+<h2 id="1-npm-기본">1. npm 기본</h2>
+
+<p>✔ NPM :  Node Package Manager의 약자다.<br />
+ ✔ node.js는 javascript를 기반으로 만들어졌으니 당연히 Date, String, Array등의 모듈을 사용할 수 있다.<br />
+ ✔ npm은 node계의 앱스토어 같은 느낌. 다른 사람이 만든 module을 사용할 수 있다.</p>
+
+<h2 id="2-npm-활용">2. npm 활용</h2>
+
+<p><strong>🔎 npm init</strong><br />
+  우리는 지금 underscore라는 다른 사람이 만든 패키지를 우리것으로 가져오려고 하는 것이다. 그런데 우리의 것도 실은 하나의 패키지이기 때문에 현재 디렉토리를 패키지로 지정하는 <code>npm init</code> 명령을 해야만 한다.</p>
+
+<ul>
+  <li>이로써 우리는 우리의 디렉토리를 npm의 패키지 디렉토리로 선언을 한 것이다 !</li>
+  <li>그리고 이 패키지에 대한 여러 정보를 기록도 한 것이다.</li>
+</ul>
+
+<p><strong>왜필요할까 ?</strong>  프로젝트의 의존성을 관리할 수 있으며, 나중에 프로젝트를 npm.com에 올리기 위한 초석이 될 수도 있다.
+<br /></p>
+
+<p><strong>🔎 module 설치</strong><br />
+자 이제 모듈을 한번 설치해보자. <code>npm install underscore</code> 명령어로 underscore라는 모듈을 설치한다.</p>
+
+<p>그럼 디렉토리에 변화가 생긴다 !!</p>
+
+<p>✔ node_modules라는 디렉토리가 생기고, 하위 디렉토리로 underscore가 생긴다. 그 안에 우리의 모듈이 위치한다.<br />
+  ✔ pakage.json 파일에 dependencies(의존성)항목으로 underscore 항목이 생긴다. 
+      <br />-&gt; 이 항목이 있으면, 우리가 pakage.json이라는 파일만 있으면 언제든 underscore 파일을 포함시킬 수 있다.</p>
+
+<p><strong>🔎 npm install [name] VS npm install [name]-g</strong></p>
+<ul>
+  <li><code>npm install [name] -g</code> : 설치하는 패키지를 전역적으로 사용하겠다는 의미다.</li>
+  <li><code>npm install [name]</code> : 설치하는 패키지를 현재 프로젝트의 부품으로 사용하겠다는 의미다.<br /><br /></li>
+</ul>
+
+<h2 id="-모듈-정보">👉 모듈 정보</h2>
+<p>실습과정에서 사용한 모듈과 명령어에 대한 정보를 정리해보았다. <br /></p>
+
+<p>🔅 <code>uglifyjs [filename] -o [newfilename] -m</code> 하면 경량화된 파일을 저장할 수 있다.<br />
+🔅 underscore은 보통 변수를 _로 선언하는 모듈로, javascript에서 기본적으로 제공되지 않는 다양한 기능을 제공한다.<br />
+🔅  _ = require(‘underscore’);</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2021/08/07/nodejs-copy.html" data-toggle="tooltip" data-placement="top" title="[node.js 공부] node.js 서버 구축">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2021/08/08/callback.html" data-toggle="tooltip" data-placement="top" title="[node.js 공부] callback 함수">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:sunkite3030@khu.ac.kr">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/SBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/StartBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/StartBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; hyeyeon-sun 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

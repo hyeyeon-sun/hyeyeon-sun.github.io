@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    [node.js 공부] node.js 서버 구축 - CodingLog
+    
+  </title>
+
+  <meta name="description" content="🚶‍♀️Prolog 아직 백엔드조차 제대로 섭렵하지 못한 초보지만,, 그래도 언젠가는 프론트도 백엔드도 다 하고 싶은 풀스택 개발자가 되고 싶다는 꿈이 있다 .. ⭐ 따라서 javascript 기반으로 서버를 다룰 수 있는 node.js가 배우고 싶어졌다 ! 이에 인프런에서 강의를...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2021/08/07/nodejs-copy.html">
+  <link rel="alternate" type="application/rss+xml" title="CodingLog" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">CodingLog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/bg-index.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>[node.js 공부] node.js 서버 구축</h1>
+            
+            <h2 class="subheading">node.js에서 기본적인 서버를 구축해본다 </h2>
+            
+            <span class="meta">Posted by
+              <a href="#">hyeyeon-sun</a>
+              on August 07, 2021 &middot; <span class="reading-time" title="Estimated read time">
+  
+   2 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <h2 id="️prolog">🚶‍♀️Prolog</h2>
+<p>아직 백엔드조차 제대로 섭렵하지 못한 초보지만,, 그래도 언젠가는 프론트도 백엔드도 다 하고 싶은 풀스택 개발자가 되고 싶다는 꿈이 있다 .. ⭐ 따라서 javascript 기반으로 서버를 다룰 수 있는 node.js가 배우고 싶어졌다 ! 이에 인프런에서
+ 강의를 찾아 열심히 따라하며 공부하고 있다. <a href="https://www.inflearn.com/course/nodejs-%EA%B0%95%EC%A2%8C-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9/dashboard">egoing 님의 강의</a>를
+ 참고해 공부하고 있고, 공부하며 정리한 내용들을 블로그에 올려볼 것이다 !
+<br /></p>
+
+<h2 id="1-nodejs-서버-구축">1. nodejs 서버 구축</h2>
+<hr />
+<p>웹서버를 호스팅하는 간단한 코드와 그 설명을 보면서 node.js와 조금 친해져보자.</p>
+<pre><code>const http = require('http'); 
+const hostname = '127.0.0.1';
+const port = 1337;
+
+http.createServer((req, res) =&gt; { // 서버를 만든다.
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello World\n');
+}).listen(port, hostname, () =&gt; { // listen을 할건데, listen할 port번호와 hostname을 전달받는다.
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+// 코드가 1337 code를 listening하도록 만드는 것이다.
+// 또 127.0.0.1로 접속한 사용자에 대해 응답하라는 것이다.
+</code></pre>
+
+<p>코드에 대한 설명은 주석을 통해 알 수 있다. http라는 모듈은 웹 서버를 호스팅할 수 있는 다양한 기능이 담긴 pakage인데, 이를 가져온다. 그리고 http의 메소드닌 createServer를 이용해 서버를 만들고, listen 메소드를 통해 만들어진 서버가 127.0.0.1이라는 호스트의 1337port를 listen할 것이라고 지정해준다.<br />
+ 여기서 끝~! 나면 안되고 ,, 반드시 공식 문서를 참고하는 버릇을 들이자. <a href="https://nodejs.org/api/">node.js docs</a>를 참고해 해당 문서에 쓰인 api의 명세를 정리해보았다.
+<br /></p>
+
+<h2 id="2-nodejs-http-api-명세">2. node.js http api 명세</h2>
+<hr />
+<p><strong>🔎 http.createServer([options][, requestListener])</strong><br />
+– options -&gt; IncomingMessage, ServerResponse, insecureHTTPParser, maxHeaderSize 등을 명시<br />
+– [, requestListener] -&gt; &lt;Function&gt; 서버에 관한 함수를 입력으로 받음.<br />
+– Returns &lt;http.server&gt;<br /></p>
+
+<p><strong>🔎 server.listen([port[, host[, backlog]]][, callback])</strong><br />
+– port &lt;number&gt; <br />
+– host &lt;string&gt; <br />
+– backlog &lt;number&gt; <br />
+– callback &lt;Function&gt;<br />
+– Returns: &lt;net.Server&gt;<br />
+description : 서버가 .port와 host에 해당하는 것을 listening한다.<br />
+server.listen에는 4가지 종류가 있으며, 위는 TCP에 해당되는 method다. <br />
+<br /></p>
+
+<h2 id="결론">결론</h2>
+<p>node.js로 간단한 서버를 구축해 보았다. 좋은 블로그 글과 stackoverflow님도 개발에 정말 많은 도움이 되지만, 이제 막 배우기 시작한 언어에 접근하는 가장 확실하고도 효율적인 방법은 공식문서인 것 같다 ! 앞으로도 눈에 잘 안들어올지라도 더 열심히 들여다보고 익혀야겠다.</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2021/07/25/motivate.html" data-toggle="tooltip" data-placement="top" title="지원 동기 : backend.ai 설치과정">&larr; Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2021/08/07/callback,npm.html" data-toggle="tooltip" data-placement="top" title="[node.js 공부] npm 패키지 매니저">Next<span class="d-none d-md-inline">
+              Post</span> &rarr;</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:sunkite3030@khu.ac.kr">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/SBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/StartBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/StartBootstrap">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; hyeyeon-sun 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+I"<h2 id="️problem">🚶‍♀️Problem</h2>
+<p>함수의 인자가 되는 함수인, <strong>callback 함수</strong>에 대해서 알아본다. callback 함수의 경우
+ node.js에서 매우 중요하게 사용되는 개념이며, 이후 동기와 비동기를 이해할 때도 핵심이 되기
+ 때문에 자주 사용하여 익혀두면 좋다.<br />
+  먼저 callback함수의 정의에 대해 알아보고, 실제 응용 예시와 종류별 callback함수의 적용, 익명의 callback함수에 대해 알아본다.</p>
+:ET

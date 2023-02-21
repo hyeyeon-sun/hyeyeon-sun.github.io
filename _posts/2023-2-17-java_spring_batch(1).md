@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "java spring batch multi-thread (1)"
-subtitle: "java spring batch를 multi-thread 방식으로 수행하는 방법에 대해 알아봅시다"
+title: "java spring batch multi-thread"
+subtitle: "java spring batch와 multi-thread기반 Spring batch 처리에 대해 알아봅시다."
 date: 2023-02-17 10:45:13 -0400
 background: "/img/bg-index.jpg"
 ---
@@ -10,9 +10,8 @@ background: "/img/bg-index.jpg"
 
 ---
 
-- 스프링 배치가 무엇이고, 배치를 더욱 빨리 처리하려면 어떻게 해야하는지
-- 배치를 multi-thread 방식으로 처리하는 다양한 방법들과, 그것들의 비교분석
-- taskExcuter를 이용해, chunk를 multi-thread 방식으로 구현하는 코드
+- 스프링 배치가 무엇이고, 작동원리가 무엇인지
+- 배치를 더욱 빨리 처리하려면 어떻게 해야하는지
 
 <br>
 
@@ -72,50 +71,11 @@ background: "/img/bg-index.jpg"
 
   <br>
 
-## Multi-thread Spring batch 처리 종류
-
----
-
-- Multi-therad 기반으로 Spring batch를 처리하는 데에는 4가지 방식이 있다. 네가지 방식에 대해 알아보고, 각각의 장단점을 분석해보자.
-  <br><br>
-
-##### 1. AsyncItemProcessor / AsyncItemWrite를 이용하는 방식
-
-- 한 Step 내에서 Processor만 병렬 수행해야할 때 사용한다.
-- itemProcessor에게 별도의 스레드가 할당되어 작업을 처리한다.
-
-![성격유형 검사하기](/assets/image/Async.png){: width="100%" }
-
-<div style = "line-height: 40px; margin-bottom: 30px;">
-&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;전반적인 작동 방식은 상단과 같은데, 해당 방식의 포인트는 ‘위임’이라고 할 수 있다.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;만약 프로세스가 동기적으로 수행된다면 read를 한 뒤, 기다렸다 processor로 처리하고, 기다렸다 writer로 처리하고,, 이렇게 순차적으로 진행이 될 것이다.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;그런데 이 방식은 read까지는 기다리지만, process와 write는 기다리지 않고 바로바로 다음 작업을 처리 하는 것이다.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;예를 들어 A유저, B유저, C유저의 등급을 업그레이드 한다고 하자. 이때 A유저의 등급을 읽어온 다음, processor에서는 A유저의 실적으로 등급을 매기고, 이 값을 writer로 써야 한다. mainthread, ItemProcessor, ItemWriter입장에 따라 단계를 보면 하단과 같다.
-</div>
-
-###### 💁🏻 main processor 입장
-
-1. Reade가 A유저의 정보를 읽어온다.
-2. 그런데 이때 AsyncItemProcessor는 A유저의 등급을 다 매길때까지 기다리지 않고 thread를 파 ItemProcessor에게 이 작업을 위임하고, AsyncItemWriter로 넘어간다.
-3. AsyncItemWriter도 다 쓸때까지 기다리지 않고, ItemWiter에게 작업을 위임하고, 다시 read 작업을 넘어간다.
-
-###### 🙆‍♂️ ItemProcessor(thread)입장
-
-1. AsyncItemProcessor가 일을 시키면 열심히 처리하고, 이걸 Future라는 객체에 넣는다.
-2. 일 다했으면 소멸 한다 ,,
-
-###### 🙋‍♀️ ItemWriter(thread)입장
-
-1. Future내에는 비동기 처리중인 작업들이 있을 것이다. 이때 비동기 처리된 실행의 결과값을 모두 받아올 때까지 기다린다.
-2. 다 받아왔으면 이 값을 DB에 저장한다.
-
-<br>
-
 ## 마무리
 
 ---
 
 - 이번 포스팅에서는 java spring batch가 무엇인지 알아보고, spring batch를 multi-thread로 처리할 때의 이점에 대해 알아보았다.
-- 다음 포스팅에서는 spring batch를 multi-thread로 처리하는 다른 방법들에 대해 알아보고, 실제로 코드에 적용해보자 !
+- 다음 포스팅에서는 spring batch를 multi-thread로 처리하는 방법에 대해 알아보자 !
 
 <br>

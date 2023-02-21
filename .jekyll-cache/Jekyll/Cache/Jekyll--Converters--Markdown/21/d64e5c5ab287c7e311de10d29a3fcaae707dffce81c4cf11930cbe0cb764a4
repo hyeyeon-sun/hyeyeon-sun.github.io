@@ -1,0 +1,94 @@
+I"<h2 id="이-글에서-얻을-수-있는-정보">이 글에서 얻을 수 있는 정보</h2>
+
+<hr />
+
+<ul>
+  <li>배치를 multi-thread 방식으로 처리하는 다양한 방법들과, 그것들의 비교분석</li>
+  <li>multi-thread 방식으로 배치 코드를 구현할 때 주의할 점
+<br /></li>
+</ul>
+
+<h2 id="multi-thread-spring-batch-처리-종류">Multi-thread Spring batch 처리 종류</h2>
+
+<hr />
+
+<ul>
+  <li>Multi-therad 기반으로 Spring batch를 처리하는 데에는 4가지 방식이 있다.</li>
+  <li>AsyncItemProcessor / AsyncItemWrite 이용, multi-Threaded Step, Paralle Steps, Externalizing Batch Process Execution 이다.</li>
+  <li>네가지 방식에 대해 알아보고, 각각의 장단점을 분석해보자.
+<br /><br /></li>
+</ul>
+
+<h5 id="1-asyncitemprocessor--asyncitemwrite를-이용하는-방식">1. AsyncItemProcessor / AsyncItemWrite를 이용하는 방식</h5>
+
+<ul>
+  <li>한 Step 내에서 Processor만 병렬 수행해야할 때 사용한다.</li>
+  <li>itemProcessor에게 별도의 스레드가 할당되어 작업을 처리한다.</li>
+</ul>
+
+<p><img src="/assets/image/Async.png" alt="성격유형 검사하기" width="100%" /></p>
+
+<div style="line-height: 40px; margin-bottom: 30px;">
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;전반적인 작동 방식은 상단과 같은데, 해당 방식의 포인트는 ‘위임’이라고 할 수 있다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;만약 프로세스가 동기적으로 수행된다면 read를 한 뒤, 기다렸다 processor로 처리하고, 기다렸다 writer로 처리하고,, 이렇게 순차적으로 진행이 될 것이다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;그런데 이 방식은 read까지는 기다리지만, process와 write는 기다리지 않고 바로바로 다음 작업을 처리 하는 것이다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;예를 들어 A유저, B유저, C유저의 등급을 업그레이드 한다고 하자. 이때 A유저의 등급을 읽어온 다음, processor에서는 A유저의 실적으로 등급을 매기고, 이 값을 writer로 써야 한다. mainthread, ItemProcessor, ItemWriter입장에 따라 단계를 보면 하단과 같다.
+</div>
+
+<h6 id="main-processor-입장">💁🏻 main processor 입장</h6>
+
+<ol>
+  <li>Reade가 A유저의 정보를 읽어온다.</li>
+  <li>그런데 이때 AsyncItemProcessor는 A유저의 등급을 다 매길때까지 기다리지 않고 thread를 파 ItemProcessor에게 이 작업을 위임하고, AsyncItemWriter로 넘어간다.</li>
+  <li>AsyncItemWriter도 다 쓸때까지 기다리지 않고, ItemWiter에게 작업을 위임하고, 다시 read 작업을 넘어간다.</li>
+</ol>
+
+<h6 id="️itemprocessorthread입장">🙆‍♂️ ItemProcessor(thread)입장</h6>
+
+<ol>
+  <li>AsyncItemProcessor가 일을 시키면 열심히 처리하고, 이걸 Future라는 객체에 넣는다.</li>
+  <li>일 다했으면 소멸 한다 ,,</li>
+</ol>
+
+<h6 id="️itemwriterthread입장">🙋‍♀️ ItemWriter(thread)입장</h6>
+
+<ol>
+  <li>Future내에는 비동기 처리중인 작업들이 있을 것이다. 이때 비동기 처리된 실행의 결과값을 모두 받아올 때까지 기다린다.</li>
+  <li>다 받아왔으면 이 값을 DB에 저장한다.</li>
+</ol>
+
+<p><br /></p>
+
+<h5 id="2-multi-threaded-step">2. Multi-threaded Step</h5>
+
+<p><img src="/assets/image/multi-threaded_Step.png" alt="multi-threaded Step" width="100%" /></p>
+
+<ul>
+  <li>
+    <p>Multi-threaded Step은 한 step 내에서 reader, processor, writer를 chunk단위로 병렬수행해야 할 때 사용한다.</p>
+  </li>
+  <li>
+    <p>구체적인 순서를 살펴보면 다음과 같다.</p>
+  </li>
+</ul>
+
+<div style="line-height : 40px">
+  &nbsp;&nbsp;1. 먼저 Step은 TaskExecutorRepeatTemplate을 이용해 일을 한다. 이때에 Thread 만큼 Runnable을 만들고, 각 쓰레드는 일을 수행한다.<br />
+  &nbsp;&nbsp;2. Runnable은 RepeatCallBack 함수를 수행한다.<br />
+  &nbsp;&nbsp;3. RepeatCallBack 함수는 ChunkOrientedTasklet을 수행한다. 이 Tasklet은 read, process, write로 이루어져 있다 !<br />
+  &nbsp;&nbsp;4. 각 Thread는 독립적으로 ItemReader / ItemProcessor / ItemWrite를 이용한다.<br />
+</div>
+
+<p><br /></p>
+
+<h2 id="마무리">마무리</h2>
+
+<hr />
+
+<ul>
+  <li>이번 포스팅에서는 java spring batch가 무엇인지 알아보고, spring batch를 multi-thread로 처리할 때의 이점에 대해 알아보았다.</li>
+  <li>다음 포스팅에서는 spring batch를 multi-thread로 처리하는 방법에 대해 알아보자 !</li>
+</ul>
+
+<p><br /></p>
+:ET

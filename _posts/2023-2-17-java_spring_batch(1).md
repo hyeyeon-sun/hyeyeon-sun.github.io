@@ -36,16 +36,22 @@ background: "/img/bg-index.jpg"
 
 그리고 Step을 구현하는 두가지 방식에 대해 알아보자
 
-- tasklet 방식
-  - tep 내부에 tasklet을 가지고 있다.
-  - 하나의 tasklet 내부에서 자유롭게 데이터를 처리하는 것이다.
-    - read, process, write를 하나의 tasklet에 넣을 수도 있고, read와 process를 하나의 tasklet에서, write를 하나의 tasklet에서 하는 등 자유롭게 찢을 수도 있다.
-  - 배치 과정이 비교적 쉬울 경우 사용
-  - 대량 처리를 하는 경우에는 코드가 오히려 더 복잡해질 수 있음.
-- Chunk 방식
-  - Chunk : Read, Process, Write로 이루어진 하나의 데이터 처리 단위
-  - itemReader, itemProcessor, itemWriter에 대해 이해해야 구현할 수 있다.
-  - 하나의 큰 덩어리를 작은 덩어리로 나누어 처리할 수 있다.
+#### 1️⃣ tasklet 방식
+
+<div style = "line-height: 40px; margin-bottom: -60px">
+•  step 내부에 tasklet을 가지고 있다.<br>
+•  하나의 tasklet 내부에서 자유롭게 데이터를 처리한다.<br>
+•  배치 과정이 비교적 쉬울 경우 사용한다.<br>
+•  대량 처리를 하는 경우에는 코드가 오히려 더 복잡해질 수 있다.</div>
+<br>
+
+#### 2️⃣ Chunk 방식
+
+<div style = "line-height: 40px">
+  •  Chunk : Read, Process, Write로 이루어진 하나의 데이터 처리 단위<br>
+  •  itemReader, itemProcessor, itemWriter에 대해 이해해야 구현할 수 있다.<br>
+  •  하나의 큰 덩어리를 작은 덩어리로 나누어 처리할 수 있다.<br>
+</div>
 
 <br>
 
@@ -56,6 +62,7 @@ background: "/img/bg-index.jpg"
 ##### 💡 문제는, 너무 느려 !
 
 - spring batch의 경우 애초에 대용량의 데이터를 한꺼번에 처리하기 위해 만들어졌으므로, 수많은 레코드들을 한번에 갱신해야 한다. 그런데 문제는 ,, 스프링 배치가 기본적으로 single thread 방식으로 진행된다는 것이다 !
+
 - 하단은 1011개의 데이터를 single-thread 기반으로 처리할 때 걸린 시간을 측정한 것이다. 총 49초가 소요되었음을 알 수 있다..
 
 ![성격유형 검사하기](/assets/image/batch_result.png){: width="100%" }
@@ -70,6 +77,7 @@ background: "/img/bg-index.jpg"
 ---
 
 - Multi-therad 기반으로 Spring batch를 처리하는 데에는 4가지 방식이 있다. 네가지 방식에 대해 알아보고, 각각의 장단점을 분석해보자.
+  <br><br>
 
 ##### 1. AsyncItemProcessor / AsyncItemWrite를 이용하는 방식
 
@@ -78,10 +86,12 @@ background: "/img/bg-index.jpg"
 
 ![성격유형 검사하기](/assets/image/Async.png){: width="100%" }
 
-- 전반적인 작동 방식은 상단과 같은데, 해당 방식의 포인트는 ‘위임’이라고 할 수 있다.
-- 만약 프로세스가 동기적으로 수행된다면 read를 한 뒤, 기다렸다 processor로 처리하고, 기다렸다 writer로 처리하고,, 이렇게 순차적으로 진행이 될 것이다.
-- 그런데 이 방식은 read까지는 기다리지만, process와 write는 기다리지 않고 바로바로 다음 작업을 처리 하는 것이다.
-- 예를 들어 A유저, B유저, C유저의 등급을 업그레이드 한다고 하자. 이때 A유저의 등급을 읽어온 다음, processor에서는 A유저의 실적으로 등급을 매기고, 이 값을 writer로 써야 한다. mainthread, ItemProcessor, ItemWriter입장에 따라 단계를 보면 하단과 같다.
+<div style = "line-height: 40px; margin-bottom: 30px;">
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;전반적인 작동 방식은 상단과 같은데, 해당 방식의 포인트는 ‘위임’이라고 할 수 있다.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;만약 프로세스가 동기적으로 수행된다면 read를 한 뒤, 기다렸다 processor로 처리하고, 기다렸다 writer로 처리하고,, 이렇게 순차적으로 진행이 될 것이다.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;그런데 이 방식은 read까지는 기다리지만, process와 write는 기다리지 않고 바로바로 다음 작업을 처리 하는 것이다.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;예를 들어 A유저, B유저, C유저의 등급을 업그레이드 한다고 하자. 이때 A유저의 등급을 읽어온 다음, processor에서는 A유저의 실적으로 등급을 매기고, 이 값을 writer로 써야 한다. mainthread, ItemProcessor, ItemWriter입장에 따라 단계를 보면 하단과 같다.
+</div>
 
 ###### 💁🏻 main processor 입장
 
@@ -98,6 +108,8 @@ background: "/img/bg-index.jpg"
 
 1. Future내에는 비동기 처리중인 작업들이 있을 것이다. 이때 비동기 처리된 실행의 결과값을 모두 받아올 때까지 기다린다.
 2. 다 받아왔으면 이 값을 DB에 저장한다.
+
+<br>
 
 ## 마무리
 

@@ -89,7 +89,7 @@ synchronized (lock) {
 
   <br>
 
-###### remote Chunking
+##### remote Chunking
 
 ![remoteChunking](/assets/image/remoteChunking.png){: width="60%" }
 
@@ -143,17 +143,17 @@ public class RemoteChunkingJobConfiguration {
 
 - 코드를 살펴보자
 
-&nbsp;&nbsp;&nbsp; 1. Reader가 A유저의 정보를 읽어온다.<br>
-&nbsp;&nbsp;&nbsp; 2. 그런데 이때 AsyncItemProcessor는 A유저의 등급을 다 매길때까지 기다리지 않고 thread를 파 ItemProcessor에게 이 작업을 위임하고, AsyncItemWriter로 넘어간다.<br>
-&nbsp;&nbsp;&nbsp;3~4. AsyncItemWriter도 다 쓸때까지 기다리지 않고, ItemWiter에게 작업을 위임하고, 다시 read 작업을 넘어간다.
-&nbsp;&nbsp;&nbsp; 5~6. manager로부터 request를 받고, 이에 대한 reply를 보낸다.<br>
-&nbsp;&nbsp;&nbsp; 7. manager는 worker로 부터 request를 받는다.
+&nbsp;&nbsp;&nbsp; **1.** manager가 item Reader를 사용해 item을 읽는다.<br>
+&nbsp;&nbsp;&nbsp; **2.** worker에게 request를 보낸다.<br>
+&nbsp;&nbsp;&nbsp; **3~4.** worker는 process, write작업을 한다.<br>
+&nbsp;&nbsp;&nbsp; **5~6.** manager로부터 request를 받고, 이에 대한 reply를 보낸다.<br>
+&nbsp;&nbsp;&nbsp; **7.** manager는 worker로 부터 request를 받는다.
 
 - 상단과 같이 진행된다. 이처럼 remote chunking을 이용하면 복잡한 처리가 필요한 process를 외부 프로세스에 위임하여 빠르게 처리할 수 있다.
   <br>
   <br>
 
-###### remote Partitioning
+##### remote Partitioning
 
 ![remotePartitioning](/assets/image/remotePartitioning.png){: width="60%" }
 

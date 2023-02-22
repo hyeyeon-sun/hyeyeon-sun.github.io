@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "spring batch를 multi-thread로 구현하는 여러가지 방법"
-subtitle: "multi-thread기반으로 Spring batch를 처리하는 방법에 대해 알아봅시다"
+title: "spring batch를 multi-thread로 구현하는 여러가지 방법(1)"
+subtitle: "Async, Multi-threaded Step 으로 Spring batch를 구현하는 방법에 대해 알아봅시다"
 date: 2023-02-17 10:45:13 -0400
 background: "/img/bg-index.jpg"
 ---
